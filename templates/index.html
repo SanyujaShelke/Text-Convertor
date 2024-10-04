@@ -1,0 +1,169 @@
+{% extends "master.html" %}
+
+{% block style %}
+<style>
+  .alert-message {
+    position: relative;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: #721c24;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .alert-message.fade-in {
+    opacity: 1;
+  }
+</style>
+{% endblock style %}
+
+{% block ul %}<ul class="navbar-nav mr-auto">
+  <li class="nav-item active">
+    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/about">About Us</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/contact">Contact Us</a>
+  </li>
+</ul>
+{% endblock ul %}
+
+{% block content %}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Welcome to Text Convertor !</strong> Here you can do any operation with your text.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="container">
+  <div id="alert-container" class="alert-message" style="display: none;">
+    <span id="alert-text"></span>
+  </div>
+
+  <form action="/success" method="GET" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">
+        <span id="animated-text">you can do anything with your text here!</span>
+      </label>
+      <textarea name='text' class="form-control" id="exampleFormControlTextarea1" rows="9"></textarea>
+    </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" name="removepunc" type="checkbox" id="switch1">
+      <label class="form-check-label" for="switch1">Remove Punctuation</label>
+    </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" name="upper" type="checkbox" id="switch2">
+      <label class="form-check-label" for="switch1">Convert to Uppercase</label>
+    </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" name="removenewline" type="checkbox" id="switch3">
+      <label class="form-check-label" for="switch1">Remove Newline Characters</label>
+    </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" name="removeextraspace" type="checkbox" id="switch4">
+      <label class="form-check-label" for="switch1">Remove Extra Spaces</label>
+    </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" name="countchar" type="checkbox" id="switch5">
+      <label class="form-check-label" for="switch1">Count Character</label>
+    </div>
+
+    <button type="submit" class="btn btn-dark mt-2">Analyze Text</button>
+
+  </form>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+  function validateForm() {
+    var textArea = document.getElementById('exampleFormControlTextarea1').value.trim();
+    var removePunc = document.getElementById('switch1').checked;
+    var upper = document.getElementById('switch2').checked;
+    var removeNewline = document.getElementById('switch3').checked;
+    var removeExtraSpace = document.getElementById('switch4').checked;
+    var countChar = document.getElementById('switch5').checked;
+
+    if (textArea === "") {
+      showMessage("Please enter some text in the textarea.");
+      return false;
+    }
+
+    if (!removePunc && !upper && !removeNewline && !removeExtraSpace && !countChar) {
+      showMessage("Please select at least one operation.");
+      return false;
+    }
+
+    return true;
+  }
+
+  function showMessage(message) {
+    var alertContainer = document.getElementById('alert-container');
+    var alertText = document.getElementById('alert-text');
+
+    alertText.textContent = message;
+    alertContainer.style.display = 'block';
+
+    alertContainer.classList.add('fade-in');
+
+    setTimeout(function () {
+      alertContainer.classList.remove('fade-in');
+      alertContainer.style.display = 'none';
+    }, 5000);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const messages = [
+      "you can do anything with your text here!",
+      "Enter your text here and let the text editor do the magic!"
+    ];
+
+    let currentMessageIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 50;
+    const deletingSpeed = 50;
+    const delayBetweenMessages = 1500;
+
+    const textElement = document.getElementById("animated-text");
+
+    function type() {
+      const currentMessage = messages[currentMessageIndex];
+      if (isDeleting) {
+        textElement.textContent = currentMessage.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          isDeleting = false;
+          currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+          setTimeout(type, typingSpeed);
+        } else {
+          setTimeout(type, deletingSpeed);
+        }
+      } else {
+        textElement.textContent = currentMessage.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentMessage.length) {
+          isDeleting = true;
+          setTimeout(type, delayBetweenMessages);
+        } else {
+          setTimeout(type, typingSpeed);
+        }
+      }
+    }
+
+    type();
+  });
+</script>
+{% endblock %}

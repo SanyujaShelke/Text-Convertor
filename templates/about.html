@@ -1,0 +1,146 @@
+{% extends "master.html" %}
+
+{% block style %}
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .hero-section {
+    background-color: #343a40;
+    color: #fff;
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .hero-section h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  .hero-section p {
+    font-size: 18px;
+    margin: 20px auto;
+    max-width: 800px;
+  }
+
+  .about-section {
+    padding: 40px 0;
+  }
+
+  .about-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .about-section p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .features-section {
+    padding: 40px 0;
+    background-color: #f1f3f5;
+  }
+
+  .features-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .features-section .feature-item {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .features-section .feature-item h4 {
+    font-size: 24px;
+    margin-top: 15px;
+  }
+
+  footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+</style>
+{% endblock style %}
+
+{% block ul %}<ul class="navbar-nav mr-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+  </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="/about">About Us</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/contact">Contact Us</a>
+  </li>
+</ul>
+{% endblock ul %}
+
+{% block content %}
+
+<section class="hero-section">
+  <div class="container">
+    <h1>About Text Convertor</h1>
+    <p>Your one-stop solution for handling text operations with ease and efficiency!</p>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="container">
+    <h2>What is Text Convertor?</h2>
+    <p>Text Convertor is an online tool designed to help users perform various text manipulations such as removing
+      punctuation, converting text to uppercase, removing extra spaces, and more. Our goal is to provide a user-friendly
+      interface that simplifies text processing tasks, saving time and improving productivity.</p>
+
+    <p>Whether you need to clean up text for data processing, format text for a project, or just streamline your text
+      editing tasks, Text Convertor has got you covered. Simply enter your text, select the desired operations, and let
+      the tool work its magic.</p>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <h2>Key Features</h2>
+    <div class="row">
+      <div class="col-md-4 feature-item">
+        <h4>Remove Punctuation</h4>
+        <p>Easily clean up your text by removing unwanted punctuation marks.</p>
+      </div>
+      <div class="col-md-4 feature-item">
+        <h4>Uppercase Conversion</h4>
+        <p>Convert all your text to uppercase for uniformity in style and formatting.</p>
+      </div>
+      <div class="col-md-4 feature-item">
+        <h4>Extra Space Removal</h4>
+        <p>Eliminate unnecessary spaces and clean up your text efficiently.</p>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-4 feature-item">
+        <h4>Remove Newlines</h4>
+        <p>Get rid of unnecessary newline characters to make text cleaner and more concise.</p>
+      </div>
+      <div class="col-md-4 feature-item">
+        <h4>Character Count</h4>
+        <p>Keep track of the number of characters in your text with ease.</p>
+      </div>
+      <div class="col-md-4 feature-item">
+        <h4>User-Friendly Interface</h4>
+        <p>Enjoy a simple, intuitive interface designed for quick text manipulation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2024 Text Convertor. All Rights Reserved.</p>
+</footer>
+
+{% endblock content %}
